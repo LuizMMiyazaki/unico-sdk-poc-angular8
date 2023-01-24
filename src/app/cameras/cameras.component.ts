@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UnicoCheckBuilder, SelfieCameraTypes, UnicoThemeBuilder, DocumentCameraTypes } from 'unico-webframe';
+import { UnicoCheckBuilder, SelfieCameraTypes, UnicoThemeBuilder, DocumentCameraTypes } from '../../assets/UnicoCheckBuilder.min';
+// import { UnicoCheckBuilder, SelfieCameraTypes, UnicoThemeBuilder, DocumentCameraTypes } from 'unico-webframe';
 
 @Component({
   selector: 'app-cameras',
@@ -79,7 +80,7 @@ export class CamerasComponent implements OnInit {
       .catch((e) => {
         console.error('Error initializing smart camera: ');
         console.error(e);
-      })
+      });
     
     cameraPromised.then((cameraOpener: { open: (arg0: object) => any; }) => cameraOpener.open(this.callback));
   }
@@ -87,7 +88,10 @@ export class CamerasComponent implements OnInit {
   cameraLiveness(): void {
     const cameraPromised = this.unicoBuilder
       .prepareSelfieCamera(this.pathUnicoConfigLiveness, SelfieCameraTypes.SMART)
-      .catch(()=>console.error('Error initializing liveness camera'));
+      .catch((e) => {
+        console.error('Error initializing liveness camera: ');
+        console.error(e);
+      });
     
     cameraPromised.then((cameraOpener: { open: (arg0: object) => any; }) => cameraOpener.open(this.callback));
   }
